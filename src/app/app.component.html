@@ -1,1 +1,15 @@
-<app-datepicker></app-datepicker>
+<app-datepicker [(ngModel)]="outerDatevalue"></app-datepicker>
+{{outerDatevalue}}
+
+<form [formGroup] = "dateForm" (ngSubmit) ="save()">
+    <app-datepicker formControlName="startDate"></app-datepicker>
+</form>
+<button (click)="submit()">submit</button>
+
+
+<form #form="ngForm" (ngSubmit)="logForm(form.value)">
+    <label>Stardate:</label>
+    <app-datepicker name="startDate" [ngModel] ="startDate" required></app-datepicker>
+  
+    <button type="submit">Submit</button>
+  </form>

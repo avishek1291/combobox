@@ -1,6 +1,44 @@
-i{
-    font-family: 'FontAwesome';
-        content: '\f274';
-        position: absolute;
-        right: 6px;
-}
+.date-container {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #a9a9a9;
+    width: 248px;
+    color: #666666;
+    font-size: 14px;
+    text-align: left;
+    justify-content: space-between;
+  
+    .date-value {
+      margin-left: 7px;
+      margin-top: 2px;
+    }
+  
+    // .qs-datepicker-container {
+    //   left: 0px !important;
+    //   .qs-datepicker {
+    //     .qs-controls {
+    //       background: #fff;
+    //     }
+    //   }
+    // }
+  
+    input {
+      margin-left: 120px;
+      margin-top: 5px;
+      background: url("/assets/images/calendar.svg") no-repeat;
+      cursor: pointer;
+      margin-left: 0px;
+    }
+    .disabled {
+      cursor: not-allowed;
+    }
+  }
+  
+  .text-danger {
+    margin-top: 5px;
+  }
+  
+  .error-highlight {
+    border: 1px solid #d81212;
+  }
+  

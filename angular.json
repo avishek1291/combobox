@@ -124,6 +124,41 @@
           }
         }
       }
+    },
+    "angular-dropdown": {
+      "projectType": "library",
+      "root": "projects/angular-dropdown",
+      "sourceRoot": "projects/angular-dropdown/src",
+      "prefix": "enl",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular-dropdown/tsconfig.lib.json",
+            "project": "projects/angular-dropdown/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-dropdown/src/test.ts",
+            "tsConfig": "projects/angular-dropdown/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-dropdown/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-dropdown/tsconfig.lib.json",
+              "projects/angular-dropdown/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "lib-playground"
 }

@@ -12,15 +12,16 @@ export class AppComponent implements OnInit {
   constructor(private formbuilder: FormBuilder) {}
   ngOnInit() {
     this.dateForm = this.formbuilder.group({
-      startDate: ['', Validators.required]
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required]
     });
     this.startDate = '12/09/2018';
   }
-  submit(){
-    console.log('formvalue', this.dateForm.value)
+  submit() {
+    console.log('formvalue', this.dateForm);
   }
 
-  logForm(formValue){
-    console.log(formValue)
+  logForm(formValue) {
+    console.log(formValue);
   }
 }

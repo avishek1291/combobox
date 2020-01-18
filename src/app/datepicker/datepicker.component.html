@@ -1,4 +1,5 @@
-<p>datepicker works!</p>
-<i class="fab fa-adn"></i>
-<input type="text" #datepicker>
-    
+<div class="date-container " [ngClass]="hasValidationError()? 'error-highlight' : ''">
+    <div class="date-value ">{{dateModel}}</div>
+    <input type="text" #datepick readonly [ngClass]="!isDisable? '': 'disabled'"/>
+</div>
+<div *ngIf="hasValidationError()" class="text-danger">{{ getErrorMsg() }} </div>

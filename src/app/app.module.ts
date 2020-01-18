@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DatepickerComponent } from './datepicker/datepicker.component';
-
+import { AngularDropdownModule } from '../../projects/angular-dropdown/src/public-api';
 @NgModule({
   declarations: [
     AppComponent,
@@ -13,7 +13,8 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

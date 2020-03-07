@@ -1,8 +1,23 @@
 {
-  "name": "@angularcombobox/combobox",
+  "name": "angular8simplecombobox",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^8.2.0",
     "@angular/core": "^8.2.0"
+  },
+  "description": "An Angular component module for multi select dropdown",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avishek1291/datepicker.git"
+  },
+  "keywords": [
+    "component",
+    "library",
+    "angular"
+  ],
+  "author": "avishek.dev.1291",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
   }
 }

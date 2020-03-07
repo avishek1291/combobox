@@ -24,6 +24,12 @@
       ],
       "angular-dropdown/*": [
         "dist/angular-dropdown/*"
+      ],
+      "combobox": [
+        "dist/combobox"
+      ],
+      "combobox/*": [
+        "dist/combobox/*"
       ]
     }
   },

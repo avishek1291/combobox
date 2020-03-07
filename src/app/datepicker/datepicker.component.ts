@@ -9,18 +9,18 @@ import {
   Output,
   EventEmitter,
   forwardRef
-} from "@angular/core";
+} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
   FormGroup
-} from "@angular/forms";
+} from '@angular/forms';
 declare var datepicker: any;
 
 @Component({
-  selector: "app-datepicker",
-  templateUrl: "./datepicker.component.html",
-  styleUrls: ["./datepicker.component.less"],
+  selector: 'app-datepicker',
+  templateUrl: './datepicker.component.html',
+  styleUrls: ['./datepicker.component.less'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -32,7 +32,7 @@ declare var datepicker: any;
 export class DatepickerComponent
   implements OnInit, AfterViewInit, OnChanges, ControlValueAccessor {
   // datepicker: any;
-  @ViewChild("datepick", { static: false }) input: ElementRef;
+  @ViewChild('datepick', { static: false }) input: ElementRef;
   @Input() placeholder: string;
   @Input() initialDate: Date;
   @Input() form: FormGroup;
@@ -80,20 +80,20 @@ export class DatepickerComponent
         this.dateModel = new Date(date).toUTCString();
         this.propagateValue(this.dateModel);
         input.value = date;
-        input.value = "";
+        input.value = '';
       },
       onSelect: (instance, date) => {
         this.emitSelectedDate(date);
       },
       dateSelected: this.initialDate,
-      position: "br",
-      customDays: ["S", "M", "T", "W", "Th", "F", "S"],
+      position: 'br',
+      customDays: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
       disableYearOverlay: true
     };
 
     this.picker = datepicker(this.input.nativeElement, options);
     this.disablePicker(this.isDisable);
-    this.picker.calendarContainer.style.setProperty("font-size", "0.8rem");
+    this.picker.calendarContainer.style.setProperty('font-size', '0.8rem');
   }
 
   emitSelectedDate(dateValue): void {
@@ -110,7 +110,7 @@ export class DatepickerComponent
     }
     if (
       this.form.controls[this.controlName].touched &&
-      this.form.controls[this.controlName].status === "INVALID"
+      this.form.controls[this.controlName].status === 'INVALID'
     ) {
       return true;
     } else if (this.form && this.form.errors) {
@@ -121,12 +121,12 @@ export class DatepickerComponent
 
   getErrorMsg() {
     if (this.validate === false) {
-      return "";
+      return '';
     }
     if (this.form && this.errorKey && this.form.errors) {
       return this.form.errors[this.errorKey];
     }
-    return "";
+    return '';
   }
 
   disablePicker(value) {
@@ -140,7 +140,7 @@ export class DatepickerComponent
     try {
       this.picker.setDate(new Date(dateValue), true);
     } catch (e) {
-      console.log("[Not a valid date or empty string: ]", e);
+      console.log('[Not a valid date or empty string: ]', e);
     }
   }
 
@@ -150,14 +150,14 @@ export class DatepickerComponent
 
   writeValue(value: any): void {
     if (value !== undefined) {
-      console.log("write value", value);
+      console.log('write value', value);
       this.dateModel = value;
     }
 
   }
   registerOnChange(fn: any): void {
 
-    console.log("regitser");
+    console.log('regitser');
     this.propagateValue = fn;
   }
   registerOnTouched(fn: any): void {

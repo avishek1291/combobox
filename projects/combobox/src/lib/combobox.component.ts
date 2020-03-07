@@ -105,7 +105,7 @@ export class ComboboxComponent
 
   @Output()
   FilterChange: EventEmitter<ListItem> = new EventEmitter<any>();
-  @Output('onDropDownClose')
+  @Output()
   DropDownClose: EventEmitter<ListItem> = new EventEmitter<any>();
 
   @Output()

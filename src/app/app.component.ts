@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {  IDropdownConfig } from 'combobox';
+import {  IDropdownConfig } from 'angular8simplecombobox';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   Item: any;
   selectedItems: any;
   cities: any;
-  dropdownSettings: any;
+  dropdownSettings: IDropdownConfig;
   showAll = false;
   ShowFilter = true;
   disableBangalore = true;
@@ -45,7 +45,8 @@ export class AppComponent implements OnInit {
       unSelectAllText: 'UnSelect All',
       enableCheckAll: this.showAll,
       itemsShowLimit: 3,
-      allowSearchFilter: this.cities.length > 8
+      allowSearchFilter: this.cities.length > 8,
+      clearSearchFilter: true
     };
     this.myForm = this.fb.group({
       cities: [[1, 2]]

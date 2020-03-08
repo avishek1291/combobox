@@ -18,21 +18,3 @@ export interface IDropdownConfig {
   defaultOpen?: boolean;
   allowRemoteDataSearch?: boolean;
 }
-
-export class ListItem {
-  id: string | number;
-  text: string | number;
-  isDisabled?: boolean;
-
-  public constructor(source: any) {
-    if (typeof source === 'string' || typeof source === 'number') {
-      this.id = this.text = source;
-      this.isDisabled = false;
-    }
-    if (typeof source === 'object') {
-      this.id = source.id;
-      this.text = source.text;
-      this.isDisabled = source.isDisabled;
-    }
-  }
-}

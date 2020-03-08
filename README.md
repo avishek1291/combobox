@@ -1,27 +1,53 @@
-# LibPlayground
+# Combobox
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
+This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
-## Development server
+# How to use this library
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Events / Output properties
 
-## Code scaffolding
+  
+  1.FilterChange: Implies change in input filter criteria types on search box
+  
+  2. DropDownClose: Emits when drop down is closed
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+  3. Select: Emits when a new Item is selected -- emited value contains new selected Item -- type: BindValue/ Array of BindValues
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+  4. DeSelect: Emits when a new Item is DeSelected -- emited value contains new DeSelected Item -- type: BindValue
+ 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+  5. onChange: Emits when value of combobox changes , emitted value type - array of latest binded values (Bind values)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Further help
+  # Inputs
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  1.placeholder -- place holder when no value is selected Type: string
+
+  2.disabled: to disable the combobox  Type: Boolean Default value: false
+
+  3.setting: Config settings for combo box
+   Type: IDropdownConfig
+
+  4. data = list of items to be displayed in combobox
+
+ # Inteface
+
+IDropdownConfig -- Iterface for providing config settings for combo box
+# Support
+Support: Reactive Forms, Template driven form, NdModel/StandAlone use field
+
+# Acessbility
+Basic Acessibity with tab index and aria value
+
+
+# Example
+
+
+
+
+
+
+ 

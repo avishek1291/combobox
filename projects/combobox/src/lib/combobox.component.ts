@@ -10,7 +10,8 @@ import {
   OnChanges
 } from '@angular/core';
 import { ListFilterPipe } from './combobox-filter.pipe';
-import { ListItem, IDropdownSettings } from './combobox.model';
+import { ListItem } from './combobox.model';
+import { IDropdownConfig } from './IDropdownConfig';
 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 @Component({
@@ -27,21 +28,19 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class ComboboxComponent
   implements OnInit, ControlValueAccessor, OnChanges {
-  // tslint:disable-next-line:variable-name
-  _settings: IDropdownSettings;
+  _settings: IDropdownConfig;
 
-  // tslint:disable-next-line:variable-name
   _data: Array<ListItem> = [];
   selectedItems: Array<ListItem> = [];
   isDropdownOpen = true;
-  // tslint:disable-next-line:variable-name
+
   _placeholder = 'Select';
-  // tslint:disable-next-line:variable-name
+
   _sourceDataType = null; // to keep note of the source data type. could be array of string/number/object
-  // tslint:disable-next-line:variable-name
+
   _sourceDataFields: Array<string> = []; // store source data fields names
   filter: ListItem = new ListItem(this.data);
-  defaultSettings: IDropdownSettings = {
+  defaultSettings: IDropdownConfig = {
     singleSelection: false,
     idField: 'id',
     textField: 'text',
@@ -74,7 +73,7 @@ export class ComboboxComponent
   disabled = false;
 
   @Input()
-  public set settings(value: IDropdownSettings) {
+  public set settings(value: IDropdownConfig) {
     if (value) {
       this.backupShowlimitValue = value.itemsShowLimit;
       this._settings = Object.assign(this.defaultSettings, value);
@@ -119,6 +118,11 @@ export class ComboboxComponent
 
   @Output()
   DeSelectAll: EventEmitter<Array<ListItem>> = new EventEmitter<Array<any>>();
+
+
+  @Output('onChange')
+  Change: EventEmitter<Array<ListItem>> = new EventEmitter<Array<any>>();
+
   toggleShow: boolean;
   backupShowlimitValue: number;
   private onTouchedCallback = () => {};
@@ -128,8 +132,7 @@ export class ComboboxComponent
     this.FilterChange.emit($event);
   }
   ngOnInit() {}
-  ngOnChanges() {
-  }
+  ngOnChanges() {}
   constructor(
     private cdr: ChangeDetectorRef,
     private listFilterPipe: ListFilterPipe
@@ -177,30 +180,20 @@ export class ComboboxComponent
             ];
           }
         } catch (e) {
-          // console.error(e.body.msg);
+          console.error(e.body.msg);
         }
       } else {
-        // const _data = value.map((item: any) =>
-        //   typeof item === 'string' || typeof item === 'number'
-        //     ? new ListItem(item)
-        //     : new ListItem({
-        //         id: item[this._settings.idField],
-        //         text: item[this._settings.textField],
-        //         isDisabled: item[this._settings.disabledField]
-        //       })
-        // );
-        // tslint:disable-next-line:variable-name
-        const _data =
-        this._data
-              .map(item => {
-                if (value.includes(item.id)) {
-                  return new ListItem({
-                    id: item.id,
-                    text: item.text,
-                    isDisabled: item.isDisabled
-                  });
-                }
-              }).filter(el => !!el) ;
+        const _data = this._data
+          .map(item => {
+            if (value.includes(item.id)) {
+              return new ListItem({
+                id: item.id,
+                text: item.text,
+                isDisabled: item.isDisabled
+              });
+            }
+          })
+          .filter(el => !!el);
         if (this._settings.limitSelection > 0) {
           this.selectedItems = _data.splice(0, this._settings.limitSelection);
         } else {
@@ -294,6 +287,7 @@ export class ComboboxComponent
     }
     this.onChangeCallback(this.emittedValue(this.selectedItems));
     this.Select.emit(this.emittedValue(item));
+    this.Change.emit(this.emittedValue(this.selectedItems));
   }
 
   removeSelected(itemSel: ListItem) {
@@ -304,6 +298,7 @@ export class ComboboxComponent
     });
     this.onChangeCallback(this.emittedValue(this.selectedItems));
     this.DeSelect.emit(this.emittedValue(itemSel));
+    this.Change.emit(this.emittedValue(this.selectedItems));
   }
 
   emittedValue(val: any): any {
@@ -320,8 +315,6 @@ export class ComboboxComponent
     }
     return selected;
   }
-
-
 
   objectify(val: ListItem) {
     if (this._sourceDataType === 'object') {
@@ -398,6 +391,5 @@ export class ComboboxComponent
 
   toggleShowChips() {
     this.toggleShow = !this.toggleShow;
-    // this._settings.itemsShowLimit = 999999999999;
   }
 }

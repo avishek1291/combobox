@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DatepickerComponent } from './datepicker/datepicker.component';
-import { ComboboxModule } from 'combobox';
+// import { ComboboxModule } from 'angular8simplecombobox';
+import {ComboboxModule} from '../../projects/combobox/src/lib/combobox.module';
 @NgModule({
   declarations: [
     AppComponent,
-    DatepickerComponent
   ],
   imports: [
     BrowserModule,

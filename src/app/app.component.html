@@ -1,27 +1,6 @@
-<!-- <app-datepicker [(ngModel)]="outerDatevalue"></app-datepicker>
-{{outerDatevalue}}
-
-<form [formGroup] = "dateForm" (ngSubmit) ="save()">
-    <app-datepicker formControlName="startDate" required></app-datepicker>
-    <app-datepicker formControlName="endDate" required></app-datepicker>
-</form>
-<button (click)="submit()">submit</button>
-
-<enl-angular-dropdown [closeOnSelect]="false" [multiSelect]="true" [Items]="Item">
-    <ng-template #optionTpl let-option>
-       <h1>HI</h1>
-       {{option.name}}
-      </ng-template>
-</enl-angular-dropdown> -->
-<!-- <form #form="ngForm" (ngSubmit)="logForm(form.value)">
-    <label>Stardate:</label>
-    <app-datepicker name="startDate" [ngModel] ="startDate" required></app-datepicker>
-  
-    <button type="submit">Submit</button>
-  </form> -->
-  <form [formGroup]="myForm">
+<form [formGroup]="myForm">
 <div class="form-element">
-  <lib-combobox  [placeholder]="'Select City'" [data]="cities" formControlName="cities"  [settings]="dropdownSettings" (DeSelect)="onDeselect($event)" (DropDownClose)="onDropDownClose()" (Select)="onItemSelect($event)" (SelectAll)="onSelectAll($event)"></lib-combobox>
+  <lib-combobox  [placeholder]="'Select City'" [data]="cities" formControlName="cities"  [settings]="dropdownSettings" (DeSelect)="onDeselect($event)" (DropDownClose)="onDropDownClose()" (onChange)="onValueChanged($event)"(Select)="onItemSelect($event)" (SelectAll)="onSelectAll($event)"></lib-combobox>
 </div>
   </form>
   <button (click)="submitForm()">Submit</button>

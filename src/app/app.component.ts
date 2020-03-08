@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {  IDropdownConfig } from 'combobox';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,16 +21,7 @@ export class AppComponent implements OnInit {
   limitSelection = false;
   constructor(private fb: FormBuilder) {}
   ngOnInit() {
-    // this.Item = [
-    //   { Id: 1, name: "India" },
-    //   { Id: 2, name: "USA" },
-    //   { Id: 3, name: "Russia" }
-    // ];
-    // this.dateForm = this.formbuilder.group({
-    //   startDate: ['', Validators.required],
-    //   endDate: ['', Validators.required]
-    // });
-    // this.startDate = '12/09/2018';
+
     this.cities = [
       { item_id: 1, item_text: 'New Delhi' },
       { item_id: 2, item_text: 'Mumbai' },
@@ -114,6 +106,9 @@ export class AppComponent implements OnInit {
   handleDisableBangalore() {
     this.cities[2].isDisabled = this.disableBangalore;
     this.cities = [...this.cities];
+  }
+  onValueChanged($event) {
+    console.log('on value change', $event);
   }
 
   handleReset() {

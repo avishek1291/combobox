@@ -45,6 +45,7 @@ export class ComboboxComponent
     idField: 'id',
     textField: 'text',
     disabledField: 'isDisabled',
+    noOptionField: 'isNoOption',
     enableCheckAll: true,
     selectAllText: 'Select All',
     unSelectAllText: 'UnSelect All',
@@ -94,10 +95,11 @@ export class ComboboxComponent
         typeof item === 'string' || typeof item === 'number'
           ? new ListItem(item)
           : new ListItem({
-              id: item[this._settings.idField],
-              text: item[this._settings.textField],
-              isDisabled: item[this._settings.disabledField]
-            })
+            id: item[this._settings.idField],
+            text: item[this._settings.textField],
+            isDisabled: item[this._settings.disabledField],
+            isNoOption: item[this._settings.noOptionField]
+          })
       );
     }
   }
@@ -125,18 +127,18 @@ export class ComboboxComponent
 
   toggleShow: boolean;
   backupShowlimitValue: number;
-  private onTouchedCallback = () => {};
-  private onChangeCallback = (_: any) => {};
+  private onTouchedCallback = () => { };
+  private onChangeCallback = (_: any) => { };
 
   onFilterTextChange($event) {
     this.FilterChange.emit($event);
   }
-  ngOnInit() {}
-  ngOnChanges() {}
+  ngOnInit() { }
+  ngOnChanges() { }
   constructor(
     private cdr: ChangeDetectorRef,
     private listFilterPipe: ListFilterPipe
-  ) {}
+  ) { }
 
   onItemClick($event: any, item: ListItem) {
     if (this.disabled || item.isDisabled) {
@@ -173,23 +175,26 @@ export class ComboboxComponent
               typeof firstItem === 'string' || typeof firstItem === 'number'
                 ? new ListItem(firstItem)
                 : new ListItem({
-                    id: firstItem[this._settings.idField],
-                    text: firstItem[this._settings.textField],
-                    isDisabled: firstItem[this._settings.disabledField]
-                  })
+                  id: firstItem[this._settings.idField],
+                  text: firstItem[this._settings.textField],
+                  isDisabled: firstItem[this._settings.disabledField],
+                  isNoOption: firstItem[this._settings.noOptionField]
+                })
             ];
           }
         } catch (e) {
           console.error(e.body.msg);
         }
       } else {
+
         const _data = this._data
           .map(item => {
             if (value.includes(item.id)) {
               return new ListItem({
                 id: item.id,
                 text: item.text,
-                isDisabled: item.isDisabled
+                isDisabled: item.isDisabled,
+                isNoOption: item.isNoOption
               });
             }
           })
@@ -247,7 +252,7 @@ export class ComboboxComponent
       this._data,
       this.filter
     );
-    const itemDisabledCount = filteredItems.filter(item => item.isDisabled)
+    const itemDisabledAndNoOptionCount = filteredItems.filter(item => item.isDisabled || item.isNoOption === true)
       .length;
     // take disabled items into consideration when checking
     if (
@@ -257,7 +262,7 @@ export class ComboboxComponent
       return false;
     }
     return (
-      filteredItems.length === this.selectedItems.length + itemDisabledCount
+      filteredItems.length === this.selectedItems.length + itemDisabledAndNoOptionCount
     );
   }
 
@@ -279,13 +284,16 @@ export class ComboboxComponent
   }
 
   addSelected(item: ListItem) {
-    if (this._settings.singleSelection) {
+    if (this._settings.singleSelection || item.isNoOption) {
       this.selectedItems = [];
       this.selectedItems.push(item);
     } else {
+      if (this.selectedItems.length === 1 && this.selectedItems[0].isNoOption) {
+        this.selectedItems = [];
+      }
       this.selectedItems.push(item);
     }
-    this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.onChangeCallback(this.selectedItems.map(el => el.id));
     this.Select.emit(this.emittedValue(item));
     this.Change.emit(this.emittedValue(this.selectedItems));
   }
@@ -296,7 +304,7 @@ export class ComboboxComponent
         this.selectedItems.splice(this.selectedItems.indexOf(item), 1);
       }
     });
-    this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.onChangeCallback(this.selectedItems.map(el => el.id));
     this.DeSelect.emit(this.emittedValue(itemSel));
     this.Change.emit(this.emittedValue(this.selectedItems));
   }
@@ -305,8 +313,8 @@ export class ComboboxComponent
     const selected = [];
     if (Array.isArray(val)) {
       val.map(item => {
-        // selected.push(this.objectify(item.id));
-        selected.push(item.id);
+        selected.push(this.objectify(item));
+        // selected.push(item);
       });
     } else {
       if (val) {
@@ -364,17 +372,18 @@ export class ComboboxComponent
       return false;
     }
     if (!this.isAllItemsSelected()) {
-      // filter out disabled item first before slicing
+      // filter out disabled and No Option item first before slicing
+
       this.selectedItems = this.listFilterPipe
         .transform(this._data, this.filter)
-        .filter(item => !item.isDisabled)
+        .filter(item => (!item.isDisabled && item.isNoOption !== true))
         .slice();
       this.SelectAll.emit(this.emittedValue(this.selectedItems));
     } else {
       this.selectedItems = [];
       this.DeSelectAll.emit(this.emittedValue(this.selectedItems));
     }
-    this.onChangeCallback(this.emittedValue(this.selectedItems));
+    this.onChangeCallback(this.selectedItems.map(el => el.id));
   }
 
   getFields(inputData) {

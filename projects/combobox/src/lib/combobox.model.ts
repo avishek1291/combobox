@@ -23,6 +23,7 @@ export class ListItem {
   id: string | number;
   text: string | number;
   isDisabled?: boolean;
+  isNoOption?: boolean;
 
   public constructor(source: any) {
     if (typeof source === 'string' || typeof source === 'number') {
@@ -33,6 +34,7 @@ export class ListItem {
       this.id = source.id;
       this.text = source.text;
       this.isDisabled = source.isDisabled;
+      this.isNoOption = source.isNoOption;
     }
   }
 }

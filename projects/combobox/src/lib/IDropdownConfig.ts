@@ -3,6 +3,7 @@ export interface IDropdownConfig {
   idField?: string;
   textField?: string;
   disabledField?: string;
+  noOptionField?: string;
   enableCheckAll?: boolean;
   selectAllText?: string;
   unSelectAllText?: string;

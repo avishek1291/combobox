@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   selectedItems: any;
   cities: any;
   dropdownSettings: IDropdownConfig;
-  showAll = false;
+  showAll = true;
   ShowFilter = true;
   disableBangalore = true;
   myForm: FormGroup;
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
       { item_id: 9, item_text: 'Bangalore4', isDisabled: this.disableBangalore },
       { item_id: 10, item_text: 'Pune5' },
       { item_id: 11, item_text: 'Chennai6' },
-      { item_id: 12, item_text: 'Navsari7' }
+      { item_id: 12, item_text: 'No Option', isNoOption: true}
     ];
     this.dropdownSettings = {
       singleSelection: false,

@@ -4,7 +4,7 @@
         <span *ngIf="selectedItems.length == 0"><span style="padding-left: 6px;">{{_placeholder}}</span></span>
         <span class="selected-item" *ngFor="let item of selectedItems;trackBy: trackByFn;let k = index" [hidden]="toggleShow?!toggleShow:k > _settings.itemsShowLimit-1">
           {{item.text}}
-          <a style="padding-top:2px;padding-left:2px;" (click)="onItemClick($event,item)">x</a>
+          <a style="padding-top:2px;padding-left:2px;" (click)="onItemClick($event,item)" [hidden]="item.isNoOption">x</a>
         </span>
       
         <span style="float:right !important;padding-right:4px ;">
@@ -23,7 +23,7 @@
         <li class="filter-textbox" *ngIf="(_data.length>0 || _settings.allowRemoteDataSearch) && _settings.allowSearchFilter">
           <div class="srch-container">
             <input type="text" aria-label="multiselect-search" [readOnly]="disabled" [placeholder]="_settings.searchPlaceholderText" [(ngModel)]="filter.text" (ngModelChange)="onFilterTextChange($event)">
-            <img src="../assets/search.svg" alt="search icon" style="height: 80%;
+            <img src="assets/images/search-icon.svg" alt="search icon" style="height: 80%;
             padding-top: 6px;">
           </div>
          

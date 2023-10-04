@@ -33,7 +33,7 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
   4. data = list of items to be displayed in combobox
 
- # Inteface
+ # Interface
 
 IDropdownConfig -- Iterface for providing config settings for combo box
 # Support
